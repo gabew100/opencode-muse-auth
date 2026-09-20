@@ -5,22 +5,39 @@ Use Meta **Muse Spark** in [opencode](https://opencode.ai) billed to your
 
 ## Install
 
+Published package:
+
 ```jsonc
-// opencode.json
 {
   "$schema": "https://opencode.ai/config.json",
   "plugin": ["opencode-muse-auth"]
 }
 ```
 
-Then run `/connect` in opencode, pick the `meta` provider and the
-*Muse Code subscription* method: it shows a Meta device page URL and a code.
-Enter the code in your browser (your own Meta account) and the login
-completes by itself.
+To use this fork with **Muse Spark 1.3 Contributor Max** support, replace the
+published-package entry with the built GitHub tarball:
 
-Verified end-to-end against the published package: isolated project with
-only `"plugin": ["opencode-muse-auth"]`, live chat on `meta/muse-spark-1.3`
-billed to subscription.
+```jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "opencode-muse-auth-max@https://raw.githubusercontent.com/gabew100/opencode-muse-auth/84a4e5627f19cd6cfbb70893ddbfea8cfbfa35d7/opencode-muse-auth-max-0.1.1.tgz"
+  ]
+}
+```
+
+Do not load both `opencode-muse-auth` and the tarball at the same time.
+
+The tarball contains the compiled plugin, so no local clone, `npm install`,
+or TypeScript build is required.
+
+Then fully restart OpenCode and run `/connect`. Pick the `meta` provider and
+the *Muse Code subscription (Meta device login)* method. Open the Meta device
+page, enter the shown code, and complete login with the Meta account that has
+your Muse Code subscription.
+
+After login, select `meta/muse-spark-1.3-contributor`; the `max` reasoning
+variant should be available.
 
 ## Requirements
 
@@ -40,6 +57,15 @@ automatically to `muse-*` model ids):
 - **Runtime** — an auth `loader` injects the cached key on every startup.
   The mint endpoint is aggressively rate-limited, so the plugin never
   re-mints on its own; re-run `/connect` only if access is revoked (401).
+- **Muse Spark 1.3 Contributor Max** — while a Muse subscription key is
+  active, the plugin exposes a `max` reasoning variant for
+  `meta/muse-spark-1.3-contributor`. Direct requests to
+  `https://api.meta.ai/v1/...` use the Muse Code User-Agent required by
+  Meta's current endpoint behavior. That fingerprint is never sent to custom
+  endpoints or proxies.
+
+Contributor `max` relies on observed Meta endpoint behavior and may change if
+Meta changes its Muse Code request contract.
 
 Flow parameters are compatible with the published behavior of oh-my-pi (MIT);
 see [NOTICE](NOTICE).
