@@ -5,22 +5,33 @@ Use Meta **Muse Spark** in [opencode](https://opencode.ai) billed to your
 
 ## Install
 
+Published package:
+
 ```jsonc
-// opencode.json
 {
   "$schema": "https://opencode.ai/config.json",
   "plugin": ["opencode-muse-auth"]
 }
 ```
 
+To test the Contributor Max fork directly from GitHub, use:
+
+```jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "git+https://github.com/gabew100/opencode-muse-auth.git#feat/muse-contributor-max"
+  ]
+}
+```
+
+The fork keeps compiled `dist/` files in the branch so OpenCode can install it
+as a Git dependency without a local TypeScript build.
+
 Then run `/connect` in opencode, pick the `meta` provider and the
 *Muse Code subscription* method: it shows a Meta device page URL and a code.
 Enter the code in your browser (your own Meta account) and the login
 completes by itself.
-
-Verified end-to-end against the published package: isolated project with
-only `"plugin": ["opencode-muse-auth"]`, live chat on `meta/muse-spark-1.3`
-billed to subscription.
 
 ## Requirements
 
