@@ -14,24 +14,30 @@ Published package:
 }
 ```
 
-To test the Contributor Max fork directly from GitHub, use:
+To use this fork with **Muse Spark 1.3 Contributor Max** support, replace the
+published-package entry with the built GitHub tarball:
 
 ```jsonc
 {
   "$schema": "https://opencode.ai/config.json",
   "plugin": [
-    "git+https://github.com/gabew100/opencode-muse-auth.git#feat/muse-contributor-max"
+    "opencode-muse-auth-max@https://raw.githubusercontent.com/gabew100/opencode-muse-auth/84a4e5627f19cd6cfbb70893ddbfea8cfbfa35d7/opencode-muse-auth-max-0.1.1.tgz"
   ]
 }
 ```
 
-The fork keeps compiled `dist/` files in the branch so OpenCode can install it
-as a Git dependency without a local TypeScript build.
+Do not load both `opencode-muse-auth` and the tarball at the same time.
 
-Then run `/connect` in opencode, pick the `meta` provider and the
-*Muse Code subscription* method: it shows a Meta device page URL and a code.
-Enter the code in your browser (your own Meta account) and the login
-completes by itself.
+The tarball contains the compiled plugin, so no local clone, `npm install`,
+or TypeScript build is required.
+
+Then fully restart OpenCode and run `/connect`. Pick the `meta` provider and
+the *Muse Code subscription (Meta device login)* method. Open the Meta device
+page, enter the shown code, and complete login with the Meta account that has
+your Muse Code subscription.
+
+After login, select `meta/muse-spark-1.3-contributor`; the `max` reasoning
+variant should be available.
 
 ## Requirements
 
