@@ -40,6 +40,15 @@ automatically to `muse-*` model ids):
 - **Runtime** — an auth `loader` injects the cached key on every startup.
   The mint endpoint is aggressively rate-limited, so the plugin never
   re-mints on its own; re-run `/connect` only if access is revoked (401).
+- **Muse Spark 1.3 Contributor Max** — while a Muse subscription key is
+  active, the plugin exposes a `max` reasoning variant for
+  `meta/muse-spark-1.3-contributor`. Direct requests to
+  `https://api.meta.ai/v1/...` use the Muse Code User-Agent required by
+  Meta's current endpoint behavior. That fingerprint is never sent to custom
+  endpoints or proxies.
+
+Contributor `max` relies on observed Meta endpoint behavior and may change if
+Meta changes its Muse Code request contract.
 
 Flow parameters are compatible with the published behavior of oh-my-pi (MIT);
 see [NOTICE](NOTICE).
